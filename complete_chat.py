@@ -23,7 +23,7 @@ class Gemini:
         for item in generator:
             yield item.text
 
-chat_instance = Gemini("gemini-3-flash")
+chat_instance = Gemini("gemini-flash-latest")
 
 if 'messages' not in st.session_state:
     st.session_state.messages = []
