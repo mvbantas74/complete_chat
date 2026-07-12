@@ -28,6 +28,12 @@ chat_instance = Gemini("gemini-flash-lite-latest")
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
+if st.session_state.messages:
+    for message in st.session_state.messages:
+        role, content = message['role'], message['content']
+        with st.chat_message(role):
+            st.write(content)
+
 prompt = st.chat_input()
 
 if prompt:
