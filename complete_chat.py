@@ -22,7 +22,8 @@ class Gemini:
     def parse_generator(generator):
         for chunk in generator:
             try:
-                yield chunk.candidates[0].content.parts[0].text
+                if chunk.candidates[0].content.parts[0].tought:
+                    yield chunk.candidates[0].content.parts[0].text
             except (AttributeError, IndexError):
                 yield "/n/n*Done thinking!*/n/n"
             if chunk.text:
