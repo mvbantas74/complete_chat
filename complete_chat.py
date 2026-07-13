@@ -21,7 +21,7 @@ class Gemini:
     @staticmethod
     def parse_generator(generator):
         for item in generator:
-            yield item.text
+            yield item
 
 chat_instance = Gemini("gemini-flash-lite-latest")
 
