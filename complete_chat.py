@@ -20,13 +20,18 @@ class Gemini:
 
     @staticmethod
     def parse_generator(generator):
+        in_thinking = False
         for chunk in generator:
             try:
                 if chunk.candidates[0].content.parts[0].thought:
+                    in_thinking = True
                     yield chunk.candidates[0].content.parts[0].text
             except Exception as e:
-                yield "/n/n*Done thinking!*/n/n"
+                pass
             if chunk.text:
+                if in_thinking:
+                    yield "/n/n*Done thinking!*/n/n"
+                    in_thinking = False
                 yield chunk.text
 
 
