@@ -20,10 +20,13 @@ class Gemini:
 
     @staticmethod
     def parse_generator(generator):
-        for item in generator:
-            if "thinking" in item:
-                yield item.thinking
-            yield item.text
+        for chunk in generator:
+            try:
+                yield chunk.candidates[0].content.parts[0].thought
+            except (AttributeError, IndexError):
+                pass
+            if chunk.text:
+                yield chunk.text
 
 
 with st.sidebar:
