@@ -21,7 +21,7 @@ class Gemini:
     @staticmethod
     def parse_generator(generator):
         for item in generator:
-            if "thinking" in text:
+            if "thinking" in item:
                 yield item.thinking
             yield item.text
 
