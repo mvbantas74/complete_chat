@@ -21,7 +21,7 @@ class Gemini:
     @staticmethod
     def parse_generator(generator):
         for item in generator:
-            yield item['candidates']
+            yield item.text
 
 
 with st.sidebar:
