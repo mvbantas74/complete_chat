@@ -30,7 +30,7 @@ class Gemini:
                 pass
             if chunk.text:
                 if in_thinking:
-                    yield "/n/n*Done thinking!*/n/n"
+                    yield "\n\n## *Done thinking!*\n\n"
                     in_thinking = False
                 yield chunk.text
 
