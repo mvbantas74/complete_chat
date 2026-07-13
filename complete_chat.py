@@ -23,7 +23,13 @@ class Gemini:
         for item in generator:
             yield item.text
 
-chat_instance = Gemini("gemini-flash-lite-latest")
+
+with st.sidebar:
+    selected_model = st.selectbox("Select Model", options=['gemini-flash-lite-latest', 'gemma4:26b-it', 'gemma4:31b-it'])
+    if not selected_model:
+        st.warning("Please select a model.")
+        
+chat_instance = Gemini(selected_model)
 
 if 'messages' not in st.session_state:
     st.session_state.messages = []
