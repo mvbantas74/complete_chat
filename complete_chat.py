@@ -24,7 +24,7 @@ class Gemini:
             try:
                 if chunk.candidates[0].content.parts[0].thought:
                     yield chunk.candidates[0].content.parts[0].text
-            except (AttributeError, IndexError):
+            except Exception as e:
                 yield "/n/n*Done thinking!*/n/n"
             if chunk.text:
                 yield chunk.text
