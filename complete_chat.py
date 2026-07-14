@@ -23,7 +23,8 @@ class StreamSplitter:
                 if self.current_chunk.candidates[0].content.parts[0].thought:
                     yield self.current_chunk.candidates[0].content.parts[0].text
                     self._advance()
-                break
+                else:
+                    break
             except Exception as e:
                 pass
 
@@ -98,7 +99,7 @@ if prompt:
             with st.status("Thinking...", expanded=True, type="compact") as status:
                 thinking_response = st.write_stream(splitter.get_thinking_stream())
                 status.update(label="Done thinking!", expanded=False, state="complete")
-            response = st.write_stream(splitter.get_thinking_stream())
+            response = st.write_stream(splitter.get_reply_stream())
     except Exception as e:
         st.error(e)
     if response:
