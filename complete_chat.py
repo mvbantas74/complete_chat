@@ -91,13 +91,18 @@ prompt = st.chat_input()
 
 if prompt:
     response = ""
+    thinking_response = ""
     user_text = {"role": "user", "content": prompt}
     st.session_state.messages.append(user_text)
     with st.chat_message("user"):
         st.markdown(prompt)
     try:
+        splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
-            response = st.write_stream(chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages)))
+            with st.status("Thinking...", expanded=True, type="compact") as status:
+                thinking_response = st.write_stream(splitter.get_thinking_stream())
+                status.update(label="Done thinking!", expanded=False, state="complete")
+            response = st.write_stream(splitter.get_thinking_stream())
     except Exception as e:
         st.error(e)
     if response:
