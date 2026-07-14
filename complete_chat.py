@@ -23,13 +23,15 @@ class StreamSplitter:
                 if self.current_chunk.candidates[0].content.parts[0].thought:
                     yield self.current_chunk.candidates[0].content.parts[0].text
                     self._advance()
+                else:
+                    break
             except Exception as e:
-                break
+                pass
 
     def get_reply_stream(self):
         while self.has_more:
             if self.current_chunk.text:
-                yield seld.current_chunk.text
+                yield self.current_chunk.text
             self._advance()
 class Gemini:
     def __init__(self, model: str):
