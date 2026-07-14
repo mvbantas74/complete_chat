@@ -30,9 +30,6 @@ class StreamSplitter:
 
     def get_reply_stream(self):
         while self.has_more:
-            msg = self.current_chunk.message
-            if hasattr(msg, 'content') and msg.content:
-                yield msg.content
             if self.current_chunk.text:
                 yield seld.current_chunk.text
             self._advance()
