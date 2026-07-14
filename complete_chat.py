@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 from google import genai
-from google.genai import types
+
 import streamlit as st
 
 class StreamSplitter:
@@ -47,9 +47,6 @@ class Gemini:
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=gemini_format,
-            config=types.GenerateContentConfig(
-                thinking_config=types.ThinkingConfig(thinking_level="high")
-            )
         )
 
     @staticmethod
@@ -73,7 +70,7 @@ class Gemini:
 
 
 with st.sidebar:
-    selected_model = st.selectbox("Select Model", options=['gemini-flash-lite-latest', 'gemma-4-26b-a4b-it', 'gemma-4-31b-it'])
+    selected_model = st.selectbox("Select Model", options=['gemma-4-31b-it', 'gemma-4-26b-a4b-it', 'gemini-flash-lite-latest'])
     if not selected_model:
         st.warning("Please select a model.")
         
@@ -100,9 +97,10 @@ if prompt:
     try:
         splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
-            with st.status("Thinking...", expanded=True, type="compact") as status:
-                thinking_response = st.write_stream(splitter.get_thinking_stream())
-                status.update(label="Done thinking!", expanded=False, state="complete")
+            if selected_model in ('gemma-4-26b-a4b-it', 'gemma-4-31b-it'):
+                with st.status("Thinking...", expanded=True, type="compact") as status:
+                    thinking_response = st.write_stream(splitter.get_thinking_stream())
+                    status.update(label="Done thinking!", expanded=False, state="complete")
             response = st.write_stream(splitter.get_reply_stream())
     except Exception as e:
         st.error(e)
