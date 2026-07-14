@@ -46,6 +46,9 @@ class Gemini:
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=gemini_format,
+            generation_config={
+                "thinking_level": "high"
+            }
         )
 
     @staticmethod
