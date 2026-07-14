@@ -3,6 +3,39 @@ from typing import List, Dict
 from google import genai
 import streamlit as st
 
+class StreamSplitter:
+    def __init__(self, stream):
+        self.stream = iter(stream)
+        self.current_chunk = None
+        self.has_more = True
+        self._advance()
+
+    def _advance(self):
+        try:
+            self.current_chunk = next(self.stream)
+        except StopIteration:
+            self.has_more = False
+            self.current_chunk = None
+
+    def get_thinking_stream(self):
+        while self.has_more:
+            try:
+                if self.current_chunk.candidates[0].content.parts[0].thought:
+                    yield self.current_chunk.candidates[0].content.parts[0].text
+                    self._advance()
+                else:
+                    break
+            except Exception as e:
+                pass
+
+    def get_reply_stream(self):
+        while self.has_more:
+            msg = self.current_chunk.message
+            if hasattr(msg, 'content') and msg.content:
+                yield msg.content
+            if self.current_chunk.text:
+                yield seld.current_chunk.text
+            self._advance()
 class Gemini:
     def __init__(self, model: str):
         self.model = model
@@ -20,6 +53,8 @@ class Gemini:
 
     @staticmethod
     def parse_generator(generator):
+        return StreamSplitter(generator)
+        """
         in_thinking = False
         for chunk in generator:
             try:
@@ -33,6 +68,7 @@ class Gemini:
                     yield "\n\n## *Done thinking!*\n\n"
                     in_thinking = False
                 yield chunk.text
+        """
 
 
 with st.sidebar:
