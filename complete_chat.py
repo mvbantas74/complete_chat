@@ -46,7 +46,9 @@ class Gemini:
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=gemini_format,
-            config=types.GenerateContentConfig("thinking_level": "high")
+            config=types.GenerateContentConfig(
+                thinking_config=types.ThinkingConfig(thinking_level="high")
+            )
         )
 
     @staticmethod
