@@ -1,0 +1,2 @@
+implementing a json online database
+connecting the streamlit to get/request from db
