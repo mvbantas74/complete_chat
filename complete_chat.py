@@ -32,6 +32,7 @@ class StreamSplitter:
             if self.current_chunk.text:
                 yield self.current_chunk.text
             self._advance()
+
 class Gemini:
     def __init__(self, model: str):
         self.model = model
