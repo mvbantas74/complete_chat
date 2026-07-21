@@ -40,14 +40,25 @@ class Gemini:
         self.client = genai.Client(api_key=st.secrets['G_API_KEY'])
 
     def call_api(self, content: List[Dict]):
-        gemini_format = ""
+        contents = []
+        for item in content:
+            contents.append(types.Content(
+                role = item['role'],
+                parts = [types.Part.from_text(text=item['content'])]
+            ))
+        return self.client.models.generate_content_stream(
+            model=self.model,
+            contents=contents,
+        )
+        
+        """gemini_format = ""
         for item in content:
             gemini_format += f"`{item['role']}`: {item['content']}"
             gemini_format += "\n"
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=gemini_format,
-        )
+        )"""
 
     @staticmethod
     def parse_generator(generator):
