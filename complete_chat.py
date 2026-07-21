@@ -51,22 +51,6 @@ class Gemini:
     @staticmethod
     def parse_generator(generator):
         return StreamSplitter(generator)
-        """
-        in_thinking = False
-        for chunk in generator:
-            try:
-                if chunk.candidates[0].content.parts[0].thought:
-                    in_thinking = True
-                    yield chunk.candidates[0].content.parts[0].text
-            except Exception as e:
-                pass
-            if chunk.text:
-                if in_thinking:
-                    yield "\n\n## *Done thinking!*\n\n"
-                    in_thinking = False
-                yield chunk.text
-        """
-
 
 with st.sidebar:
     selected_model = st.selectbox("Select Model", options=['gemma-4-31b-it', 'gemma-4-26b-a4b-it', 'gemini-flash-lite-latest'])
