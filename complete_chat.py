@@ -20,14 +20,14 @@ class StreamSplitter:
     def get_thinking_stream(self):
         while self.has_more:
             try:
-                if self.current_chunk.candidates:
-                    for part in self.current_chunk.candidates[0].content.parts:
+                #if self.current_chunk.candidates:
+                 #   for part in self.current_chunk.candidates[0].content.parts:
                         # If it has a thought attribute, it's a reasoning chunk
-                        if hasattr(part, 'thought') and part.thought:
-                            yield part.text
+                  #      if hasattr(part, 'thought') and part.thought:
+                   #         yield part.text
                     
-                # if self.current_chunk.candidates[0].content.parts[0].thought:
-                    # yield self.current_chunk.candidates[0].content.parts[0].text
+                if self.current_chunk.candidates[0].content.parts[0].thought:
+                    yield self.current_chunk.candidates[0].content.parts[0].text
                     self._advance()
                 else:
                     break
