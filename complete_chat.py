@@ -49,6 +49,9 @@ class Gemini:
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=contents,
+            generation_config={
+        "thinking_level": "low"
+    }
         )
         
         """gemini_format = ""
