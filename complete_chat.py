@@ -43,7 +43,7 @@ class Gemini:
         contents = []
         for item in content:
             contents.append(types.Content(
-                role = item['role'],
+                role = item['role'] if item['role'] == 'user' else "model",
                 parts = [types.Part.from_text(text=item['content'])]
             ))
         return self.client.models.generate_content_stream(
