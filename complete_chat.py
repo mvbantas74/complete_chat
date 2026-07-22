@@ -49,6 +49,11 @@ class Gemini:
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=contents,
+            config = types.GenerateContentConfig(
+                thinking_config=types.ThinkingConfig(
+                    include_thoughts=True
+                )
+            )
         )
         
         """gemini_format = ""
