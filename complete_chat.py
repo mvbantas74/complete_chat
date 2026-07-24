@@ -1,3 +1,6 @@
+
+import json
+import uuid
 from typing import List, Dict
 from google import genai
 from google.genai import types
@@ -119,6 +122,12 @@ if prompt:
 
 with st.sidebar:
     st.info("DEBUG", icon="ℹ️")
-    if st.button("Save chat"):
-        save_current_chat()
+    
+    st.download_button( 
+        label="Download data as JSON", 
+        data=json.dumps(st.session_state.messages, indent=2), 
+        file_name=f"{uuid.uuid4()}.json", 
+        mime="application/json" 
+    )
+        
     st.write(st.session_state.messages)
