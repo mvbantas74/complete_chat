@@ -20,7 +20,7 @@ class StreamSplitter:
     def get_thinking_stream(self):
         while self.has_more:
             try:
-                yield self.current_chunk.candidates:
+                yield self.current_chunk.candidates
                 self._advance()
                 #if self.current_chunk.candidates[0].content.parts[0].thought:
                     #yield self.current_chunk.candidates[0].content.parts[0].text
