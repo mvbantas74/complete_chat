@@ -86,6 +86,9 @@ if st.session_state.messages:
     for message in st.session_state.messages:
         role, content = message['role'], message['content']
         with st.chat_message(role):
+            if "thinking" in message:
+                with st.status("... done thinking!", state="complete", type="compact"):
+                    st.write(message['thinking'])
             st.write(content)
 
 prompt = st.chat_input()
