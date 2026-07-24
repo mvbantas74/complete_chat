@@ -53,7 +53,8 @@ class Gemini:
             contents=contents,
             config = types.GenerateContentConfig(
                 thinking_config=types.ThinkingConfig(
-                    include_thoughts=True
+                    include_thoughts=True,
+                    thinking_level="high"
                 )
             )
         )
