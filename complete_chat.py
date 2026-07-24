@@ -108,4 +108,7 @@ if prompt:
     except Exception as e:
         st.error(e)
     if response:
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        new_response = {"role": "assistant", "content": response}
+        if thinking_response:
+            new_response['thinking'] = thinking_response
+        st.session_state.messages.append(new_response)
