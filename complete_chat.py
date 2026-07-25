@@ -119,12 +119,11 @@ if prompt:
 
 with st.sidebar:
     st.info("DEBUG", icon="ℹ️")
+    st.write(st.session_state.messages)
     
-    st.download_button( 
+st.download_button( 
         label="Download data as JSON", 
         data=json.dumps(st.session_state.messages, indent=2, ensure_ascii=False),
         file_name=f"{uuid.uuid4()}.json", 
         mime="application/json" 
     )
-        
-    st.write(st.session_state.messages)
