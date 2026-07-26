@@ -81,6 +81,9 @@ chat_instance = Gemini(selected_model)
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
+def empty_chat():
+    st.session_state.messages = []
+
 if st.session_state.messages:
     for message in st.session_state.messages:
         role, content = message['role'], message['content']
