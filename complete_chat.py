@@ -78,11 +78,17 @@ with st.sidebar:
         
 chat_instance = Gemini(selected_model)
 
+
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
 def empty_chat():
     st.session_state.messages = []
+
+col1, col2 = st.columns(2)
+
+if col2.button("New chat"):
+    empty_chat()
 
 if st.session_state.messages:
     for message in st.session_state.messages:
@@ -123,7 +129,7 @@ with st.sidebar:
     st.info("DEBUG", icon="ℹ️")
     st.write(st.session_state.messages)
     
-col1, col2 = st.columns(2)
+
 
 col1.download_button( 
         label="Download data as JSON", 
@@ -131,5 +137,3 @@ col1.download_button(
         file_name=f"{uuid.uuid4()}.json", 
         mime="application/json" 
     )
-if col2.button("New chat"):
-    empty_chat()
