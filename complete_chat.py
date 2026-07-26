@@ -123,9 +123,13 @@ with st.sidebar:
     st.info("DEBUG", icon="ℹ️")
     st.write(st.session_state.messages)
     
-st.download_button( 
+col1, col2 = st.columns(2)
+
+col1.download_button( 
         label="Download data as JSON", 
         data=json.dumps(st.session_state.messages, indent=2, ensure_ascii=False),
         file_name=f"{uuid.uuid4()}.json", 
         mime="application/json" 
     )
+if col2.button("New chat"):
+    empty_chat()
