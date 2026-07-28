@@ -56,9 +56,8 @@ class Gemini:
 From now on, adopt an ultra-concise communication style.
 Rules:
 1. No greetings or introductions.
-2. No conclusions or invitations for further questions.
-3. Answer the subject directly.
-4. Use lists instead of paragraphs whenever possible. 5. Minimize the word count without losing the essence of the information.
+2. Answer the subject directly.
+3. Minimize the word count without losing the essence of the information.
 """,
                 thinking_config=types.ThinkingConfig(
                     include_thoughts=True,
