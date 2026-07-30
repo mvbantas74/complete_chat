@@ -5,7 +5,8 @@ from google import genai
 from google.genai import types
 import streamlit as st
 
-
+col1, col2 = st.columns(2)
+is_thinking_enabled = col2.toggle("Enable thinking", value=True)
 class StreamSplitter:
     def __init__(self, stream):
         self.stream = iter(stream)
@@ -63,7 +64,7 @@ Rules:
 """,
                 thinking_config=types.ThinkingConfig(
                     include_thoughts=True,
-                    thinking_level="high"
+                    thinking_level="high" if is_thinking_enabled else "off"
                 )
             )
         )
@@ -86,11 +87,10 @@ if 'messages' not in st.session_state:
 def empty_chat():
     st.session_state.messages = []
 
-col1, col2 = st.columns(2)
 
 if col2.button("New chat"):
     empty_chat()
-is_thinking_enabled = col2.toggle("Enable thinking", value=True)
+
 
 if st.session_state.messages:
     for message in st.session_state.messages:
