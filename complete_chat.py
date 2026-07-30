@@ -90,6 +90,7 @@ col1, col2 = st.columns(2)
 
 if col2.button("New chat"):
     empty_chat()
+is_thinking_enabled = col2.toggle("Enable thinking", value=True)
 
 if st.session_state.messages:
     for message in st.session_state.messages:
@@ -112,7 +113,7 @@ if prompt:
     try:
         splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
-            if True:#selected_model in ('gemma-4-26b-a4b-it', 'gemma-4-31b-it'):
+            if is_thinking_enabled:
                 with st.status("Thinking...", expanded=True, type="compact") as status:
                     thinking_response = st.write_stream(splitter.get_thinking_stream())
                     status.update(label="Done thinking!", expanded=False, state="complete")
