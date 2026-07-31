@@ -55,10 +55,10 @@ class Gemini:
             contents=contents,
             config = types.GenerateContentConfig(
                 temperature=0.0,
-                system_instruction="""
-From now on, adopt an ultra-concise communication style.
-Rules:
-1. No greetings or introductions.
+                system_instruction=
+# From now on, adopt an ultra-concise communication style.
+# Rules:
+"""1. No greetings or introductions.
 2. Answer the subject directly.""",
 # 3. Minimize the word count without losing the essence of the information.
 #""",
