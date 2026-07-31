@@ -54,7 +54,9 @@ class Gemini:
             model=self.model,
             contents=contents,
             config = types.GenerateContentConfig(
-                temperature=0.0,
+                temperature=0.8,
+                top_p=0.9,
+                top_k=40,
                 system_instruction=
 # From now on, adopt an ultra-concise communication style.
 # Rules:
