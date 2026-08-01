@@ -7,6 +7,7 @@ import streamlit as st
 
 col1, col2 = st.columns(2)
 is_thinking_enabled = col2.toggle("Enable thinking", value=True)
+
 class StreamSplitter:
     def __init__(self, stream):
         self.stream = iter(stream)
