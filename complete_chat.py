@@ -128,13 +128,10 @@ if prompt:
         if thinking_response:
             new_response['thinking'] = thinking_response
         st.session_state.messages.append(new_response)
-        
 
 with st.sidebar:
     st.info("DEBUG", icon="ℹ️")
     st.write(st.session_state.messages)
-    
-
 
 col1.download_button( 
         label="Download data as JSON", 
