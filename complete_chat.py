@@ -58,13 +58,8 @@ class Gemini:
                 temperature=0.8,
                 top_p=0.9,
                 top_k=40,
-                system_instruction=
-# From now on, adopt an ultra-concise communication style.
-# Rules:
-"""1. No greetings or introductions.
-2. Answer the subject directly.""",
-# 3. Minimize the word count without losing the essence of the information.
-#""",
+                system_instruction="""From now on, adopt an ultra-concise communication style.
+No introductions, answer the subject directly.""",
                 thinking_config=types.ThinkingConfig(
                     include_thoughts=True,
                     thinking_level="high" if is_thinking_enabled else "minimal"
