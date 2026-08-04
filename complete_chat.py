@@ -126,6 +126,7 @@ if prompt:
 
 with st.sidebar:
     st.info("DEBUG", icon="ℹ️")
+    st.write("Raw data")
     st.write(st.session_state.messages)
 
 col1.download_button( 
