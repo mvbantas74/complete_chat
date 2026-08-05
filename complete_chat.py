@@ -111,7 +111,7 @@ if prompt:
     try:
         splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
-            if is_thinking_enabled:
+            if True:#is_thinking_enabled:
                 with st.status("Thinking...", expanded=True, type="compact") as status:
                     thinking_response = st.write_stream(splitter.get_thinking_stream())
                     status.update(label="Done thinking!", expanded=False, state="complete")
