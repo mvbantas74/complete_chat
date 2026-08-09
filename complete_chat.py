@@ -51,6 +51,14 @@ class Gemini:
                 role = item['role'] if item['role'] == 'user' else "model",
                 parts = [types.Part.from_text(text=item['content'])]
             ))
+    """
+    contents.append(types.Content(
+        role="user",
+        parts=[
+            types.Part.from_text(text="Describe this image"),
+            types.Part.from_bytes(data=image_data, mime_type="image/jpeg")
+        ]
+    ))"""
         return self.client.models.generate_content_stream(
             model=self.model,
             contents=contents,
