@@ -1,5 +1,10 @@
 import base64
-from Pillow import Image
+import io
+# from typing import Dict, Literal, List
+
+import streamlit as st
+from streamlit.runtime.uploaded_file_manager import UploadedFile
+from PIL import Image
 
 def reduce_image_size(file_input: UploadedFile) -> bytes:
     img = Image.open(file_input)
