@@ -59,7 +59,8 @@ class Gemini:
             types.Part.from_bytes(data=image_data, mime_type="image/jpeg")
         ]
     ))"""
-    return self.client.models.generate_content_stream(
+    
+        return self.client.models.generate_content_stream(
             model=self.model,
             contents=contents,
             config = types.GenerateContentConfig(
