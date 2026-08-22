@@ -79,7 +79,6 @@ with st.sidebar:
         
 chat_instance = Gemini(selected_model)
 
-
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
