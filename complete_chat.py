@@ -63,7 +63,7 @@ class Gemini:
 No introductions, answer the subject directly.""",
                 thinking_config=types.ThinkingConfig(
                     include_thoughts=True,
-                    thinking_level="high" if is_thinking_enabled else "minimal"
+                    thinking_level="medium" if is_thinking_enabled else "minimal"
                 )
             )
         )
