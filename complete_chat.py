@@ -61,8 +61,8 @@ class Gemini:
                 temperature=0.1,
                 top_p=0.8,
                 top_k=20,
-                system_instruction="""MANDATORY! From now on, adopt an ultra-concise communication style.
-No introductions, answer the subject directly.""",
+                # system_instruction="""MANDATORY! From now on, adopt an ultra-concise communication style.
+#No introductions, answer the subject directly.""",
                 thinking_config=types.ThinkingConfig(
                     include_thoughts=True,
                     thinking_level="high" if is_thinking_enabled else "minimal"
