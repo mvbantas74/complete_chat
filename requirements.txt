@@ -1,2 +1,2 @@
 streamlit
-googlegen-ai
+google-genai
