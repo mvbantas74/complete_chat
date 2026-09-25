@@ -130,7 +130,7 @@ with st.sidebar:
     st.write(st.session_state.messages)
     st.write("End chats")
 
-col1.download_button( 
+st.download_button( 
         label="Download data as JSON", 
         data=json.dumps(st.session_state.messages, indent=2, ensure_ascii=False),
         file_name=f"{uuid.uuid4()}.json", 
