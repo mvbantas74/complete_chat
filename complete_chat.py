@@ -130,12 +130,12 @@ class Gemini:
         return StreamSplitter(generator)
 
 with st.sidebar:
-    selected_model = st.selectbox("Select Model", options=['gemma-4-31b-it', 'gemma-4-26b-a4b-it', 'gemini-flash-lite-latest', 'moonshotai/kimi-k3'])
+    selected_model = st.selectbox("Select Model", options=["nvidia/nemotron-3.5-lightning-30b-a3b", 'gemma-4-31b-it', 'gemma-4-26b-a4b-it', 'gemini-flash-lite-latest', 'moonshotai/kimi-k3'])
     if not selected_model:
         st.warning("Please select a model.")
         
 chat_instance = None #Gemini(selected_model) if (selected_model not "moonshotai/kimi-k3") else NVidia(selected_model)
-if selected_model == "moonshotai/kimi-k3":
+if selected_model in ("moonshotai/kimi-k3", "nvidia/nemotron-3.5-lightning-30b-a3b"):
     chat_instance = NVidia(selected_model)
 else:
     chat_instance = Gemini(selected_model)
