@@ -46,9 +46,14 @@ class NVidia:
     def __init__(self, model: str):
         self.model = model
         self.auth = st.secrets['N_API_KEY']
+        self.url = st.secrets['N_URL']
     
     def call_api(self, content: List[Dict]):
-        pass
+        stream = True
+        headers = {
+            "Authorization": f"Bearer {self.auth}",
+            "Accept": "text/event-stream" if stream else "application/json",
+        }
 
 class Gemini:
     def __init__(self, model: str):
