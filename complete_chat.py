@@ -59,6 +59,7 @@ class NSplitter:
     def get_thinking_stream(self):
         while self.has_more:
             line = self.current_chunk
+            self._advance()
             decoded = line.decode()
             if decoded.startswith("data: "):
                 decoded = decoded[6:]
@@ -68,15 +69,13 @@ class NSplitter:
                 continue
             if not chunk["choices"]:
                 continue
-            while self.has_more:
-                try:
-                    if self.current_chunk.chunk["choices"][0]["delta"].get("reasoning_content", None):
-                        yield self.current_chunk.chunk["choices"][0]["delta"]["reasoning_content"]
-                        self._advance()
-                    else:
-                        break
-                except Exception as e:
-                    pass
+            try:
+                if self.current_chunk.chunk["choices"][0]["delta"].get("reasoning_content", None):
+                    yield self.current_chunk.chunk["choices"][0]["delta"]["reasoning_content"]
+                else:
+                    break
+            except Exception as e:
+                pass
     
         
     def get_reply_stream(self):
