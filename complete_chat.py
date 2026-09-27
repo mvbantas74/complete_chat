@@ -57,7 +57,8 @@ class NSplitter:
             self.current_chunk = None
     
     def get_thinking_stream(self):
-        for line in self.current_chunk:
+        while self.has_more:
+            line = self.current_chunk
             decoded = line.decode()
             if decoded.startswith("data: "):
                 decoded = decoded[6:]
