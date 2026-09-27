@@ -43,7 +43,12 @@ class StreamSplitter:
             self._advance()
 
 class NVidia:
-    pass
+    def __init__(self, model: str):
+        self.model = model
+        self.auth = st.secrets['N_API_KEY']
+    
+    def call_api(self, content: List[Dict]):
+        pass
 
 class Gemini:
     def __init__(self, model: str):
