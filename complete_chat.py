@@ -56,9 +56,9 @@ class NSplitter:
         try:
             chunk = json.loads(decoded)
         except json.JSONDecodeError:
-            continue
+            yield ""
         if not chunk["choices"]:
-            continue
+            yield ""
         delta = chunk["choices"][0]["delta"].get("content")
         if delta:
             full_response += delta
