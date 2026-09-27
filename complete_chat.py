@@ -48,54 +48,59 @@ class NSplitter:
         self.current_chunk = None
         self.has_more = True
         self._advance()
-    
+
     def _advance(self):
         try:
             self.current_chunk = next(self.stream)
         except StopIteration:
             self.has_more = False
             self.current_chunk = None
-    
+
+    def _parse_current(self):
+        """Decodează și parsează linia curentă; None dacă nu e utilizabilă."""
+        line = self.current_chunk
+        if line is None:
+            return None
+        decoded = line.decode()
+        if decoded.startswith("data: "):
+            decoded = decoded[6:]
+        decoded = decoded.strip()
+        if not decoded or decoded == "[DONE]":
+            return None
+        try:
+            chunk = json.loads(decoded)
+        except json.JSONDecodeError:
+            return None
+        if not chunk.get("choices"):
+            return None
+        return chunk
+
     def get_thinking_stream(self):
         while self.has_more:
-            line = self.current_chunk
-            self._advance()
-            decoded = line.decode()
-            if decoded.startswith("data: "):
-                decoded = decoded[6:]
-            try:
-                chunk = json.loads(decoded)
-            except json.JSONDecodeError:
+            chunk = self._parse_current()
+            if chunk is None:
+                self._advance()
                 continue
-            if not chunk["choices"]:
-                continue
-            try:
-                if self.current_chunk.chunk["choices"][0]["delta"].get("reasoning_content", None):
-                    yield self.current_chunk.chunk["choices"][0]["delta"]["reasoning_content"]
-                else:
-                    break
-            except Exception as e:
-                pass
-    
-        
+            reasoning = chunk["choices"][0].get("delta", {}).get("reasoning_content")
+            if reasoning:
+                yield reasoning
+                self._advance()
+            else:
+                break  # oprim aici, lăsăm current_chunk pt get_reply_stream
+
     def get_reply_stream(self):
-        #st.write(self.stream)
         full_response = ""
-        for line in self.current_chunk:
-            decoded = line.decode()
-            if decoded.startswith("data: "):
-                decoded = decoded[6:]
-            try:
-                chunk = json.loads(decoded)
-            except json.JSONDecodeError:
+        while self.has_more:
+            chunk = self._parse_current()
+            self._advance()
+            if chunk is None:
                 continue
-            if not chunk["choices"]:
-                continue
-            delta = chunk["choices"][0]["delta"].get("content")
+            delta = chunk["choices"][0].get("delta", {}).get("content")
             if delta:
                 full_response += delta
                 yield delta
         return full_response
+
 
 class NVidia:
     def __init__(self, model: str):
