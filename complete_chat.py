@@ -57,7 +57,7 @@ class NSplitter:
             self.current_chunk = None
     
     def get_thinking_stream(self):
-        for line in self.stream:
+        for line in self.current_chunk:
             decoded = line.decode()
             if decoded.startswith("data: "):
                 decoded = decoded[6:]
@@ -81,7 +81,7 @@ class NSplitter:
     def get_reply_stream(self):
         #st.write(self.stream)
         full_response = ""
-        for line in self.stream:
+        for line in self.current_chunk:
             decoded = line.decode()
             if decoded.startswith("data: "):
                 decoded = decoded[6:]
