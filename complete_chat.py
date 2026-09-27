@@ -44,7 +44,39 @@ class StreamSplitter:
 
 class NSplitter:
     def __init__(self, stream):
-        self.stream = stream
+        self.stream = iter(stream)
+        self.current_chunk = None
+        self.has_more = True
+        self._advance()
+    
+    def _advance(self):
+        try:
+            self.current_chunk = next(self.stream)
+        except StopIteration:
+            self.has_more = False
+            self.current_chunk = None
+    
+    def get_thinking_stream(self):
+        for line in self.stream:
+            decoded = line.decode()
+            if decoded.startswith("data: "):
+                decoded = decoded[6:]
+            try:
+                chunk = json.loads(decoded)
+            except json.JSONDecodeError:
+                continue
+            if not chunk["choices"]:
+                continue
+            while self.has_more:
+                try:
+                    if self.current_chunk.chunk["choices"][0]["delta"].get("reasoning_content", None):
+                        yield self.current_chunk.chunk["choices"][0]["delta"]["reasoning_content]
+                        self._advance()
+                    else:
+                        break
+                except Exception as e:
+                    pass
+    
         
     def get_reply_stream(self):
         #st.write(self.stream)
