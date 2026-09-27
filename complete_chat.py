@@ -47,6 +47,8 @@ class NSplitter:
         self.stream = stream
         
     def get_reply_stream(self):
+        st.write(self.stream)
+        st.type(self.stream)
         full_response = ""
         for line in self.stream:
             decoded = line.decode()
