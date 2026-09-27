@@ -70,7 +70,7 @@ class NSplitter:
             while self.has_more:
                 try:
                     if self.current_chunk.chunk["choices"][0]["delta"].get("reasoning_content", None):
-                        yield self.current_chunk.chunk["choices"][0]["delta"]["reasoning_content]
+                        yield self.current_chunk.chunk["choices"][0]["delta"]["reasoning_content"]
                         self._advance()
                     else:
                         break
