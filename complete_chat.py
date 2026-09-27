@@ -88,7 +88,6 @@ class NSplitter:
                 break
 
     def get_reply_stream(self):
-        full_response = ""
         while self.has_more:
             chunk = self._parse_current()
             self._advance()
@@ -98,7 +97,6 @@ class NSplitter:
             if delta:
                 full_response += delta
                 yield delta
-        return full_response
 
 
 class NVidia:
