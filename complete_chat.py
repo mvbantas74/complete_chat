@@ -57,7 +57,6 @@ class NSplitter:
             self.current_chunk = None
 
     def _parse_current(self):
-        """Decodează și parsează linia curentă; None dacă nu e utilizabilă."""
         line = self.current_chunk
         if line is None:
             return None
@@ -86,7 +85,7 @@ class NSplitter:
                 yield reasoning
                 self._advance()
             else:
-                break  # oprim aici, lăsăm current_chunk pt get_reply_stream
+                break
 
     def get_reply_stream(self):
         full_response = ""
