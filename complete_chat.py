@@ -68,6 +68,26 @@ class NVidia:
                 "enable_thinking": False
             }
         }
+        response = requests.post(self.url, headers=headers, json=payload, stream=stream)
+        return response
+    
+    def parse_generator(generator):
+        full_response = ""
+        for line in response.iter_lines():
+            decoded = line.decode()
+            if decoded.startswith("data: "):
+                decoded = decoded[6:]
+            try:
+                chunk = json.loads(decoded)
+            except json.JSONDecodeError:
+                continue
+            if not chunk["choices"]:
+                continue
+            delta = chunk["choices"][0]["delta"].get("content")
+            if delta:
+                full_response += delta
+                yield delta
+        return full_response
 
 class Gemini:
     def __init__(self, model: str):
