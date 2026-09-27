@@ -91,6 +91,8 @@ class NVidia:
             }
         }
         response = requests.post(self.url, headers=headers, json=payload, stream=stream)
+        st.write(response)
+
         return response
     
     def parse_generator(generator):
