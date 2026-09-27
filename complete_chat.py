@@ -5,6 +5,7 @@ from google import genai
 from google.genai import types
 import streamlit as st
 import domain.utils
+import requests
 
 col1, col2 = st.columns(2)
 is_thinking_enabled = col2.toggle("Enable thinking", value=True)
