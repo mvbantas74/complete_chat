@@ -47,7 +47,23 @@ class NSplitter:
         self.stream = stream
         
     def get_reply_stream(self):
-        
+        full_response = ""
+        for line in self.stream.iter_lines():
+            decoded = line.decode()
+            if decoded.startswith("data: "):
+                decoded = decoded[6:]
+            try:
+                chunk = json.loads(decoded)
+            except json.JSONDecodeError:
+                continue
+            if not chunk["choices"]:
+                continue
+            delta = chunk["choices"][0]["delta"].get("content")
+            if delta:
+                full_response += delta
+                yield delta
+        return full_response
+
 class NVidia:
     def __init__(self, model: str):
         self.model = model
@@ -78,22 +94,7 @@ class NVidia:
         return response
     
     def parse_generator(generator):
-        full_response = ""
-        for line in response.iter_lines():
-            decoded = line.decode()
-            if decoded.startswith("data: "):
-                decoded = decoded[6:]
-            try:
-                chunk = json.loads(decoded)
-            except json.JSONDecodeError:
-                continue
-            if not chunk["choices"]:
-                continue
-            delta = chunk["choices"][0]["delta"].get("content")
-            if delta:
-                full_response += delta
-                yield delta
-        return full_response
+        return NSplitter(generator)
 
 class Gemini:
     def __init__(self, model: str):
