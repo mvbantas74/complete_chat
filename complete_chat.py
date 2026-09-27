@@ -47,22 +47,22 @@ class NSplitter:
         self.stream = stream
         
     def get_reply_stream(self):
-        st.write(self.stream)
-        st.type(self.stream)
+        #st.write(self.stream)
         full_response = ""
-        decoded = self.stream.decode()
-        if decoded.startswith("data: "):
-            decoded = decoded[6:]
-        try:
-            chunk = json.loads(decoded)
-        except json.JSONDecodeError:
-            yield ""
-        if not chunk["choices"]:
-            yield ""
-        delta = chunk["choices"][0]["delta"].get("content")
-        if delta:
-            full_response += delta
-            yield delta
+        for line in self.stream:
+            decoded = line.decode()
+            if decoded.startswith("data: "):
+                decoded = decoded[6:]
+            try:
+                chunk = json.loads(decoded)
+            except json.JSONDecodeError:
+                continue
+            if not chunk["choices"]:
+                continue
+            delta = chunk["choices"][0]["delta"].get("content")
+            if delta:
+                full_response += delta
+                yield delta
         return full_response
 
 class NVidia:
