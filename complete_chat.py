@@ -41,6 +41,9 @@ class StreamSplitter:
                 yield self.current_chunk.text
             self._advance()
 
+class NVidia:
+    pass
+
 class Gemini:
     def __init__(self, model: str):
         self.model = model
