@@ -54,6 +54,20 @@ class NVidia:
             "Authorization": f"Bearer {self.auth}",
             "Accept": "text/event-stream" if stream else "application/json",
         }
+        payload = {
+            "model": self.model,
+            "max_tokens": 4096,
+            "stream": stream,
+            "temperature": 1,
+            "top_p": 0.95,
+            "frequency_penalty": 0,
+            "presence_penalty": 0,
+            "seed": 42,
+            "messages": content,
+            "chat_template_kwargs": {
+                "enable_thinking": False
+            }
+        }
 
 class Gemini:
     def __init__(self, model: str):
