@@ -95,7 +95,6 @@ class NSplitter:
                 continue
             delta = chunk["choices"][0].get("delta", {}).get("content")
             if delta:
-                full_response += delta
                 yield delta
 
 
