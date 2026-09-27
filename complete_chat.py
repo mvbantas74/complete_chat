@@ -120,7 +120,7 @@ class NVidia:
             "seed": 42,
             "messages": content,
             "chat_template_kwargs": {
-                "enable_thinking": False
+                "enable_thinking": True
             }
         }
         response = requests.post(self.url, headers=headers, json=payload, stream=stream)
@@ -203,7 +203,7 @@ if prompt:
     try:
         splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
-            if False:#is_thinking_enabled:
+            if True:#is_thinking_enabled:
                 with st.status("Thinking...", expanded=True, type="compact") as status:
                     thinking_response = st.write_stream(splitter.get_thinking_stream())
                     status.update(label="Done thinking!", expanded=False, state="complete")
