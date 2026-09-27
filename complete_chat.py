@@ -42,6 +42,12 @@ class StreamSplitter:
                 yield self.current_chunk.text
             self._advance()
 
+class NSplitter:
+    def __init__(self, stream):
+        self.stream = stream
+        
+    def get_reply_stream(self):
+        
 class NVidia:
     def __init__(self, model: str):
         self.model = model
