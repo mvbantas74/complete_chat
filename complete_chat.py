@@ -91,8 +91,7 @@ class NVidia:
             }
         }
         response = requests.post(self.url, headers=headers, json=payload, stream=stream)
-        st.write(type(response))
-        st.write(len(response))
+        st.write(response.content)
     
     def parse_generator(generator):
         return NSplitter(generator)
