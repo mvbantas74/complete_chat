@@ -48,7 +48,7 @@ class NSplitter:
         
     def get_reply_stream(self):
         full_response = ""
-        for line in self.stream.iter_lines():
+        for line in self.stream:
             decoded = line.decode()
             if decoded.startswith("data: "):
                 decoded = decoded[6:]
@@ -91,9 +91,7 @@ class NVidia:
             }
         }
         response = requests.post(self.url, headers=headers, json=payload, stream=stream)
-        st.write(response)
-
-        return response
+        return response.iter_lines()
     
     def parse_generator(generator):
         return NSplitter(generator)
