@@ -128,7 +128,7 @@ class Gemini:
         return StreamSplitter(generator)
 
 with st.sidebar:
-    selected_model = st.selectbox("Select Model", options=['gemma-4-31b-it', 'gemma-4-26b-a4b-it', 'gemini-flash-lite-latest'])
+    selected_model = st.selectbox("Select Model", options=['gemma-4-31b-it', 'gemma-4-26b-a4b-it', 'gemini-flash-lite-latest', 'moonshotai/kimi-k3'])
     if not selected_model:
         st.warning("Please select a model.")
         
@@ -166,7 +166,7 @@ if prompt:
     try:
         splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
-            if True:#is_thinking_enabled:
+            if False:#is_thinking_enabled:
                 with st.status("Thinking...", expanded=True, type="compact") as status:
                     thinking_response = st.write_stream(splitter.get_thinking_stream())
                     status.update(label="Done thinking!", expanded=False, state="complete")
