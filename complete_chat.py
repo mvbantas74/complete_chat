@@ -91,10 +91,11 @@ class NVidia:
             }
         }
         response = requests.post(self.url, headers=headers, json=payload, stream=stream)
-        return response
+        st.write(type(response))
+        st.write(len(response))
     
     def parse_generator(generator):
-        return NSplitter(generator[0])
+        return NSplitter(generator)
 
 class Gemini:
     def __init__(self, model: str):
