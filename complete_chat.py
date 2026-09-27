@@ -48,7 +48,7 @@ class NSplitter:
         
     def get_reply_stream(self):
         full_response = ""
-        for line in self.stream:
+        for line in self.stream.iter_lines():
             decoded = line.decode()
             if decoded.startswith("data: "):
                 decoded = decoded[6:]
@@ -91,10 +91,10 @@ class NVidia:
             }
         }
         response = requests.post(self.url, headers=headers, json=payload, stream=stream)
-        print(response.iter_lines())
+        return response
     
     def parse_generator(generator):
-        return NSplitter(generator)
+        return NSplitter(generator[0])
 
 class Gemini:
     def __init__(self, model: str):
