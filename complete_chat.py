@@ -81,7 +81,7 @@ with st.sidebar:
     if not selected_model:
         st.warning("Please select a model.")
         
-chat_instance = Gemini(selected_model)
+chat_instance = Gemini(selected_model) if selected_model not "kimi-k3" else NVidia(selected_model)
 
 if 'messages' not in st.session_state:
     st.session_state.messages = []
