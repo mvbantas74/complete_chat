@@ -90,12 +90,15 @@ class NSplitter:
     def get_reply_stream(self):
         while self.has_more:
             chunk = self._parse_current()
-            self._advance()
             if chunk is None:
+                self._advance()
                 continue
             delta = chunk["choices"][0].get("delta", {}).get("content")
             if delta:
                 yield delta
+                self._advance()
+            else:
+                break
 
 
 class NVidia:
