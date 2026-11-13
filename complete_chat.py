@@ -138,6 +138,8 @@ class Gemini:
     def __init__(self, model: str):
         self.model = model
         self.client = genai.Client(api_key=st.secrets['G_API_KEY'])
+        for model in client.models.list():
+            st.sidebar(model)
 
     def call_api(self, content: List[Dict]):
         contents = []
