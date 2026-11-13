@@ -193,7 +193,7 @@ if st.session_state.messages:
         role, content = message['role'], message['content']
         with st.chat_message(role):
             if "thinking" in message:
-                with st.status("... done thinking!", state="complete", type="compact"):
+                with st.status("... done thinking!", state="complete", type="default"):
                     st.write(message['thinking'])
             st.write(content)
 
@@ -210,7 +210,7 @@ if prompt:
         splitter = chat_instance.parse_generator(chat_instance.call_api(st.session_state.messages))
         with st.chat_message("assistant"):
             if True:#is_thinking_enabled:
-                with st.status("Thinking...", expanded=True, type="compact") as status:
+                with st.status("Thinking...", expanded=True, type="default") as status:
                     thinking_response = st.write_stream(splitter.get_thinking_stream())
                     status.update(label="Done thinking!", expanded=False, state="complete")
             response = st.write_stream(splitter.get_reply_stream())
